@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Favorites</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9edc9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #8c9376c4;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header-title {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-buttons .view-favorites-btn {
+            color: #8c9376;
+            background-color: #d4a373;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .header-buttons .view-favorites-btn:hover {
+            background-color: #b08968;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .favorites-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .favorites-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #8c9376;
+        }
+
+        .favorite-word {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .favorite-word:hover {
+            background-color: #f1f1f1;
+        }
+
+        .favorite-word .edit-btn, .favorite-word .remove-btn {
+            background-color: #8c9376;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .favorite-word .remove-btn {
+            background-color: #d9534f;
+        }
+
+        .favorite-word .edit-btn:hover {
+            background-color: #7b8265;
+        }
+
+        .favorite-word .remove-btn:hover {
+            background-color: #c9302c;
+        }
+
+        .highlight {
+            background-color: #ffff99; /* Yellow highlight */
+        }
+
+        footer {
+            background-color: #8c9376c4;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <h1>Favorite Words</h1>
+        </div>
+        <div class="header-buttons">
+            <a href="index.html" class="view-favorites-btn">Back to Dictionary</a>
+        </div>
+    </header>
+    <main>
+        <div class="favorites-container">
+            <h2>Your Favorite Words</h2>
+            <ul id="favoritesList"></ul>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Dictionary. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to load favorites from localStorage and display them
+        function loadFavorites() {
+            var favorites = JSON.parse(localStorage.getItem("favorites"));
+
+            var favoritesList = document.getElementById("favoritesList");
+
+            // Clear existing list to avoid duplicates
+            favoritesList.innerHTML = "";
+
+            if (favorites && favorites.length > 0) {
+                favorites.forEach(function(word) {
+                    var li = document.createElement("li");
+                    li.className = "favorite-word";
+                    
+                    var span = document.createElement("span");
+                    span.textContent = word;
+                    li.appendChild(span);
+                    
+                    var editBtn = document.createElement("button");
+                    editBtn.textContent = "Edit";
+                    editBtn.classList.add("edit-btn");
+                    editBtn.addEventListener("click", function() {
+                        editFavoriteWord(li, word, span);
+                    });
+
+                    var removeBtn = document.createElement("button");
+                    removeBtn.textContent = "Remove";
+                    removeBtn.classList.add("remove-btn");
+                    removeBtn.addEventListener("click", function() {
+                        removeFromFavorites(word);
+                        loadFavorites(); // Reload favorites after removal
+                    });
+
+                    li.appendChild(editBtn);
+                    li.appendChild(removeBtn);
+                    favoritesList.appendChild(li);
+                });
+            } else {
+                var li = document.createElement("li");
+                li.textContent = "No favorites saved.";
+                favoritesList.appendChild(li);
+            }
+        }
+
+        // Function to remove word from favorites
+        function removeFromFavorites(word) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            favorites = favorites.filter(item => item !== word);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+
+        // Function to edit favorite word
+        function editFavoriteWord(li, oldWord, span) {
+            var input = document.createElement("input");
+            input.type = "text";
+            input.value = oldWord;
+            li.replaceChild(input, span);
+            input.focus();
+            input.addEventListener("blur", function() {
+                saveEditedWord(li, oldWord, input.value);
+            });
+            input.addEventListener("keypress", function(e) {
+                if (e.key === "Enter") {
+                    saveEditedWord(li, oldWord, input.value);
+                }
+            });
+        }
+
+        // Function to save the edited word
+        function saveEditedWord(li, oldWord, newWord) {
+            if (newWord && newWord !== oldWord) {
+                let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                let wordIndex = favorites.indexOf(oldWord);
+                if (wordIndex !== -1) {
+                    favorites[wordIndex] = newWord;
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    loadFavorites(); // Reload favorites after update
+                }
+            } else {
+                loadFavorites(); // Reload without changes if the new word is invalid
+            }
+        }
+
+        // Call loadFavorites when the page is ready
+        window.onload = function() {
+            loadFavorites();
+        };
+    </script>
+</body>
+</html>

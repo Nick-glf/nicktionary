@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NICKTIONARY</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9edc9; /* Light background color */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #8c9376c4; /* Primary color with alpha transparency */
+            color: #FFFFFF; /* Crisp white text */
+            text-align: center;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between; /* Space between elements */
+            align-items: center; /* Center vertically */
+            padding: 10px 20px; /* Add some padding */
+        }
+
+        .header-title {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .header-buttons .view-favorites-btn, .header-buttons .play-game-btn {
+            color: #787e66;
+            background-color: #b98f65;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .header-buttons .view-favorites-btn:hover, .header-buttons .play-game-btn:hover {
+            background-color: #b08968; /* Darker shade on hover */
+        }
+
+        .main-content {
+            display: flex;
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #d4a373; /* Accent color border */
+            border-radius: 4px;
+            background-color: #FFFFFF; /* White background */
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #d4a373; /* Accent color */
+            color: #FFFFFF; /* Crisp white text */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #b08968; /* Darker accent color on hover */
+        }
+
+        .results, #wordOfDayContent {
+            background-color: #fefae0; /* Secondary background color */
+            padding: 20px;
+            border: 1px solid #d4a373; /* Accent color border */
+            border-radius: 4px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .results #phonetic {
+            font-style: italic; /* Italic font */
+        }
+
+        .favorite-icon {
+            cursor: pointer;
+            color: #d4a373; /* Accent color */
+            font-size: 24px;
+            margin-left: 10px; /* Space between word and icon */
+        }
+
+        footer {
+            background-color: #8c9376c4; /* Primary color with alpha transparency */
+            color: #FFFFFF; /* Crisp white text */
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto; /* Push footer to the bottom of the page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .favorites-section {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <h1>NICKTIONARY</h1>
+        </div>
+        <div class="header-buttons">
+            <a href="favorites.html" class="view-favorites-btn">View Favorites</a>
+            <a href="game.html" class="play-game-btn">Play Game</a>
+        </div>
+    </header>
+    <div class="main-content">
+        <main>
+            <div class="search-container">
+                <input type="text" id="word_search" placeholder="Enter a word">
+                <button onclick="buttonClicked()">Search</button>
+            </div>
+            <div id="results" class="results">
+                <h2>Results</h2>
+                <div id="phonetic"></div>
+                <div id="audio"></div>
+                <div id="displayWord"></div>
+                <div id="adjective"></div>
+                <div id="antonyms"></div>
+                <div id="examples"></div>
+            </div>
+            <br><br>
+            <div class="favorites-section">
+                <h2>Word of the Day</h2>
+                <span id="addToFavorites" class="favorite-icon bx bx-bookmark-heart" onclick="addToFavorites()"></span>
+            </div>
+            <div id="wordOfDayContent"></div>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 Your Dictionary. All rights reserved.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

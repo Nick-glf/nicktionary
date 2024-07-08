@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NICKTIONARY - Game Selection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9edc9; /* Light background color */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #8c9376c4; /* Primary color with alpha transparency */
+            color: #FFFFFF; /* Crisp white text */
+            text-align: center;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between; /* Space between elements */
+            align-items: center; /* Center vertically */
+            padding: 10px 20px; /* Add some padding */
+        }
+
+        .header-title {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .header-buttons .view-favorites-btn, .header-buttons .play-game-btn {
+            color: #8c9376;
+            background-color: #d4a373;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .header-buttons .view-favorites-btn:hover, .header-buttons .play-game-btn:hover {
+            background-color: #b08968; /* Darker shade on hover */
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        /* Game options container */
+        .game-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Allows responsive layout */
+            max-width: 800px; /* Limit maximum width */
+            padding: 20px;
+            margin: auto;
+        }
+
+        /* Individual game card */
+        .game-card {
+            width: 300px;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px); /* Lift on hover */
+        }
+
+        /* Button inside game card */
+        .game-card button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover button {
+            opacity: 1; /* Fade in on hover */
+        }
+
+        .coming-soon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #8c9376c4; /* Primary color with alpha transparency */
+            color: #FFFFFF; /* Crisp white text */
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto; /* Push footer to the bottom of the page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <h1>NICKTIONARY GAMES</h1>
+        </div>
+        <div class="header-buttons">
+            <a href="favorites.html" class="view-favorites-btn">View Favorites</a>
+            <a href="index.html" class="play-game-btn">Home</a>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="game-options">
+            <div class="game-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo-Eu330is7Do1gSKtQcMfZDkC2J2zAggKag&s');">
+                <button onclick="playGame('word_scramble.html')">Play Word Scramble</button>
+            </div>
+            <div class="game-card" style="background-image: url('https://mir-s3-cdn-cf.behance.net/projects/404/db9e21195320515.Y3JvcCw1NzUzLDQ1MDAsMTEyNSww.jpg');">
+                <button onclick="playGame('hangman.html')">Play Hangman</button>
+            </div>
+            <div class="game-card" style="background-image: url('https://media.istockphoto.com/id/1337669767/video/animation-of-retro-coming-soon-text-glitching-on-blue-background-old-tv-glitch-interference.jpg?s=640x640&k=20&c=_hORV16FCXehzmyGec78Lnu8m63QN3KsqDk0UfngCCE=');">
+                <div class="coming-soon"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Dictionary. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function playGame(gameUrl) {
+            window.location.href = gameUrl;
+        }
+    </script>
+</body>
+</html>
